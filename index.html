@@ -1,0 +1,892 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Khushi Ji 🎂</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink: #ec8fb5;
+  --pink-dark: #d75d92;
+  --lavender: #c8b8f5;
+  --cream: #fff9f5;
+  --ink: #493747;
+  --muted: #8b7888;
+  --shadow: 0 12px 35px rgba(139,87,126,.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 10%, #ffe1ed 0, transparent 30%),
+    radial-gradient(circle at 90% 15%, #e9e0ff 0, transparent 30%),
+    linear-gradient(145deg, #fff9f5, #fff1f8 50%, #f5f0ff);
+  overflow-x: hidden;
+}
+
+button { font-family: inherit; cursor: pointer; }
+.screen { display: none; min-height: 100vh; padding: 35px 18px 55px; animation: fadeIn .6s ease; }
+.screen.active { display: flex; align-items: center; justify-content: center; }
+.wrap { width: 100%; max-width: 950px; margin: auto; text-align: center; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-7px) rotate(1deg); }
+}
+@keyframes pop {
+  0% { transform: scale(.75); opacity: 0; }
+  70% { transform: scale(1.06); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes drift {
+  0% { transform: translateY(0) rotate(0); opacity: 0; }
+  15% { opacity: .9; }
+  100% { transform: translateY(-105vh) rotate(35deg); opacity: 0; }
+}
+
+.eyebrow {
+  display: inline-block;
+  background: rgba(255,255,255,.8);
+  border: 1px solid #f5d6e5;
+  border-radius: 100px;
+  padding: 8px 16px;
+  color: var(--pink-dark);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+h1,h2,h3 { font-family: 'Playfair Display',serif; line-height: 1.2; }
+h1 { font-size: clamp(2.5rem,8vw,5rem); margin-bottom: 20px; }
+h2 { font-size: clamp(2rem,6vw,3.4rem); margin-bottom: 14px; }
+h3 { font-size: 1.4rem; }
+.pink { color: var(--pink-dark); }
+
+.subtitle {
+  max-width: 620px;
+  margin: 0 auto 26px;
+  color: var(--muted);
+  font-size: clamp(1rem,2.5vw,1.15rem);
+  line-height: 1.85;
+}
+.small { color: var(--muted); font-size: .9rem; line-height: 1.7; }
+
+.btn {
+  border: 0;
+  border-radius: 100px;
+  padding: 14px 25px;
+  background: linear-gradient(135deg,var(--pink),var(--pink-dark));
+  color: white;
+  font-size: .98rem;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(215,93,146,.22);
+  transition: transform .2s,box-shadow .2s;
+  margin: 7px;
+}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(215,93,146,.3); }
+.btn.secondary { color: var(--pink-dark); background: white; border: 1px solid #f1c9dc; box-shadow: none; }
+.btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+/* FIXED ENVELOPE */
+.envelope {
+  width: 150px;
+  height: 105px;
+  margin: 32px auto 22px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 10px;
+  background: #f3b4c6;
+  box-shadow: 0 14px 28px rgba(180,100,135,.18);
+  animation: float 3s ease-in-out infinite;
+  isolation: isolate;
+}
+
+/* Front envelope folds */
+.envelope::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: #ed9fb6;
+  clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+  z-index: 2;
+}
+
+/* Top triangular flap */
+.envelope::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: #df829f;
+  clip-path: polygon(0 0, 100% 0, 50% 62%);
+  z-index: 3;
+}
+
+/* Heart stays centered above the envelope folds */
+.envelope-heart {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 53%;
+  transform: translate(-50%,-50%);
+  width: 39px;
+  height: 30px;
+  border-radius: 5px;
+  background: #fff0f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+  box-shadow: 0 3px 8px rgba(120,50,80,.12);
+  pointer-events: none;
+}
+
+.footer-note { margin-top: 30px; font-size: .82rem; color: var(--muted); }
+
+.music-control {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  border: 1px solid #f0cce0;
+  background: rgba(255,255,255,.9);
+  color: var(--pink-dark);
+  font-size: 1.35rem;
+  box-shadow: var(--shadow);
+}
+
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 17px;
+  max-width: 740px;
+  margin: 30px auto 22px;
+}
+.chapter-card {
+  background: rgba(255,255,255,.83);
+  border: 1px solid rgba(237,194,217,.8);
+  border-radius: 24px;
+  padding: 26px 20px;
+  text-align: left;
+  box-shadow: var(--shadow);
+  transition: transform .2s,border-color .2s;
+  cursor: pointer;
+  min-height: 150px;
+}
+.chapter-card:hover { transform: translateY(-5px); border-color: var(--pink); }
+.chapter-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+.chapter-card h3 { margin-bottom: 8px; }
+.chapter-card p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+.lock-note { font-size: .82rem; color: var(--muted); margin-top: 10px; }
+
+.panel {
+  background: rgba(255,255,255,.83);
+  border: 1px solid rgba(237,194,217,.8);
+  border-radius: 28px;
+  padding: clamp(22px,5vw,42px);
+  box-shadow: var(--shadow);
+  max-width: 790px;
+  margin: 24px auto;
+}
+.compliment-box {
+  min-height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg,#fff1f7,#f5efff);
+  border-radius: 22px;
+  padding: 28px;
+  margin: 22px 0;
+}
+.compliment-text {
+  font-family: 'Playfair Display',serif;
+  font-size: clamp(1.15rem,3.5vw,1.55rem);
+  line-height: 1.85;
+}
+.compliment-text.show { animation: pop .45s ease; }
+.counter { color: var(--muted); font-size: .85rem; margin-top: 10px; }
+
+.letter-paper {
+  background: #fffaf1;
+  border: 1px solid #f1e0c9;
+  border-radius: 18px;
+  padding: clamp(22px,5vw,38px);
+  text-align: left;
+  line-height: 2;
+  font-size: 1rem;
+}
+.letter-paper p,.apology-paper p { margin-bottom: 16px; }
+.letter-signature,.apology-signature {
+  font-family: 'Playfair Display',serif;
+  font-size: 1.3rem;
+  color: var(--pink-dark);
+  margin-top: 20px;
+}
+.apology-paper {
+  background: linear-gradient(145deg,#fffaf7,#fff0f6);
+  border: 1px solid #f0d2e0;
+  border-radius: 20px;
+  padding: clamp(22px,5vw,38px);
+  text-align: left;
+  line-height: 1.95;
+  font-size: 1rem;
+}
+.apology-paper .apology-heading {
+  font-family: 'Playfair Display',serif;
+  color: var(--pink-dark);
+  font-size: clamp(1.6rem,4vw,2.2rem);
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 25px;
+}
+.apology-signature { font-size: 1.2rem; margin-top: 24px; }
+
+.progress-track {
+  width: 100%;
+  max-width: 470px;
+  height: 8px;
+  background: #f0e4ef;
+  border-radius: 100px;
+  overflow: hidden;
+  margin: 20px auto 28px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg,var(--pink),var(--lavender));
+  transition: width .35s;
+}
+.question-number {
+  color: var(--pink-dark);
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.quiz-question { font-size: clamp(1.5rem,4vw,2.1rem); margin-bottom: 23px; }
+.quiz-options { display: grid; gap: 12px; max-width: 530px; margin: 0 auto; }
+.quiz-option {
+  width: 100%;
+  text-align: left;
+  background: white;
+  color: var(--ink);
+  border: 1px solid #ead8e6;
+  border-radius: 16px;
+  padding: 16px 18px;
+  font-size: .98rem;
+  transition: background .2s,border-color .2s,transform .2s;
+}
+.quiz-option:hover:not(:disabled) { border-color: var(--pink); transform: translateX(3px); }
+.quiz-option.correct { background: #e9f8ed; border-color: #82c995; }
+.quiz-option.wrong { background: #fff0f2; border-color: #e7a0af; }
+.quiz-option:disabled { cursor: default; }
+.quiz-feedback { min-height: 30px; margin: 17px 0 4px; color: var(--pink-dark); font-weight: 600; line-height: 1.6; }
+
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 14px;
+  max-width: 620px;
+  margin: 25px auto;
+}
+.mood-card {
+  border: 1px solid #efcfe0;
+  border-radius: 20px;
+  padding: 23px 12px;
+  background: white;
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.6;
+  transition: transform .2s,background .2s;
+}
+.mood-card span { display: block; font-size: 2rem; margin-bottom: 8px; }
+.mood-card:hover { transform: translateY(-4px); background: #fff2f8; }
+.mood-card.selected { border: 2px solid var(--pink-dark); background: #fff0f7; }
+.mood-message {
+  display: none;
+  padding: 20px;
+  background: linear-gradient(135deg,#fff1f7,#f4efff);
+  border-radius: 18px;
+  line-height: 1.8;
+  margin: 20px auto;
+  max-width: 570px;
+}
+.mood-message.show { display: block; animation: pop .4s ease; }
+
+.final-cake { font-size: clamp(4rem,13vw,7rem); margin: 12px 0; animation: float 3s ease-in-out infinite; }
+.final-message { max-width: 690px; margin: 18px auto; line-height: 1.9; color: var(--muted); font-size: 1.05rem; }
+.final-card {
+  background: rgba(255,255,255,.85);
+  border: 1px solid #f0cee1;
+  border-radius: 28px;
+  padding: clamp(25px,5vw,45px);
+  box-shadow: var(--shadow);
+  margin: 24px auto;
+  max-width: 760px;
+}
+.final-wish {
+  color: var(--pink-dark);
+  font-family: 'Playfair Display',serif;
+  font-size: clamp(1.3rem,4vw,2rem);
+  line-height: 1.7;
+  margin-top: 22px;
+}
+.floating {
+  position: fixed;
+  bottom: -50px;
+  z-index: 999;
+  pointer-events: none;
+  animation: drift linear forwards;
+  opacity: .95;
+  will-change: transform,opacity;
+}
+.screen>.wrap { position: relative; z-index: 1; }
+
+@media(max-width:600px) {
+  .screen { padding: 65px 15px 35px; }
+  .chapter-grid { gap: 12px; }
+  .chapter-card { padding: 20px 15px; min-height: 155px; border-radius: 19px; }
+  .chapter-card h3 { font-size: 1.2rem; }
+  .chapter-card p { font-size: .82rem; }
+  .panel { border-radius: 23px; padding: 22px 16px; }
+  .compliment-box { padding: 20px 16px; min-height: 240px; }
+  .mood-grid { gap: 10px; }
+  .mood-card { padding: 18px 8px; font-size: .92rem; }
+  .btn { padding: 13px 20px; }
+}
+@media(max-width:360px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop preload="auto">
+  <source src="birthday-song.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-control" id="soundButton" aria-label="Turn music on" title="Turn music on" onclick="toggleSound()">♫</button>
+
+<!-- WELCOME -->
+<section class="screen active" id="welcome">
+<div class="wrap">
+  <span class="eyebrow">A little birthday surprise 🎉</span>
+  <p style="font-size:3rem;margin:10px 0 22px">🎂🎈🌷</p>
+  <p class="small">Oye Khushi Ji… birthday girl, suno na! 😄</p>
+  <h1 style="margin-top:14px">A little surprise<br>for <span class="pink">you!</span> 🎁</h1>
+  <p class="subtitle">Ek chhota sa birthday surprise, thodi si masti, kuch achhi baatein, aur ek dost ki taraf se dher saari birthday wishes. 🥳</p>
+
+  <!-- Envelope with the corrected shape -->
+  <div class="envelope" role="button" tabindex="0" aria-label="Open your birthday surprise" onclick="startStory()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();startStory()}">
+    <span class="envelope-heart">❤️</span>
+  </div>
+
+  <p class="small">Madam Ji, your birthday surprise is waiting! 💌</p>
+  <button class="btn" onclick="startStory()">Open your surprise 🎁</button>
+  <p class="footer-note">Made with friendship, fun, and lots of birthday wishes. 🌷</p>
+</div>
+</section>
+
+<!-- MENU -->
+<section class="screen" id="menu">
+<div class="wrap">
+  <span class="eyebrow">Your birthday story ✨</span>
+  <h2>Welcome, Khushi Ji! <span class="pink">💗</span></h2>
+  <p class="subtitle">Madam Ji, aapke liye chhote-chhote chapters ready hain. Har chapter mein kuch alag hai, so let's go one by one! 😌🎀</p>
+  <div class="chapter-grid">
+    <div class="chapter-card" onclick="go('compliments')"><span class="chapter-icon">🌷</span><h3>01. A Few Sweet Words</h3><p>Kuch compliments jo aapko sunne chahiye, Madam Ji.</p></div>
+    <div class="chapter-card" onclick="go('letter')"><span class="chapter-icon">💌</span><h3>02. A Little Letter</h3><p>Ek dost ki taraf se ek chhota sa birthday note.</p></div>
+    <div class="chapter-card" onclick="go('quiz')"><span class="chapter-icon">🎀</span><h3>03. The Birthday Quiz</h3><p>Thoda sa fun, thodi si guessing. Ready ho?</p></div>
+    <div class="chapter-card" onclick="go('mood')"><span class="chapter-icon">🫶</span><h3>04. Your Mood Corner</h3><p>Aaj ke mood ke hisaab se ek little message.</p></div>
+    <div class="chapter-card" onclick="go('apology')"><span class="chapter-icon">🤍</span><h3>05. Something From My Heart</h3><p>Kuch baatein jo mujhe honestly kehni hain.</p></div>
+  </div>
+  <p class="lock-note">Har chapter ko aaram se explore karna, Khushi Ji. No rushing! 🌸</p>
+  <button class="btn secondary" id="skipButton"
+  onclick="runAway(this)"
+  onmouseenter="runAway(this)"
+  ontouchstart="runAway(this)">
+  Skip to the end 🏃‍♂️💨
+</button>
+</div>
+</section>
+
+<!-- COMPLIMENTS -->
+<section class="screen" id="compliments">
+<div class="wrap">
+  <span class="eyebrow">Chapter 01 · Sweet words 🌷</span>
+  <h2>A few words for <span class="pink">Madam Ji</span></h2>
+  <p class="subtitle">Birthday girl, aaj compliments accept karne padenge. No arguing with the birthday committee. 😌🎀</p>
+  <div class="panel">
+    <div class="compliment-box"><p class="compliment-text" id="randomCompliment">Khushi Ji, aapke liye kuch special baatein hain. 💗</p></div>
+    <button class="btn" onclick="showCompliment()">Next compliment 🌸</button>
+    <p class="counter" id="complimentCounter">A little appreciation, just for you 💌</p>
+  </div>
+  <button class="btn secondary" onclick="go('menu')">← Chapter menu</button>
+  <button class="btn" onclick="go('letter')">Next chapter 💌</button>
+</div>
+</section>
+
+<!-- LETTER -->
+<section class="screen" id="letter">
+<div class="wrap">
+  <span class="eyebrow">Chapter 02 · From a friend 💌</span>
+  <h2>A little note for <span class="pink">you</span></h2>
+  <p class="subtitle">Not a long speech, Madam Ji. Bas kuch baatein jo birthday par kehni banti hain. 🌷</p>
+  <div class="panel">
+    <div class="letter-paper">
+      <p>Dear Khushi Ji, 🌸</p>
+      <p>Sabse pehle, <strong>HAPPY BIRTHDAY!</strong> 🥳 I hope aapka aaj ka din aapki smile jitna cute aur aapki favourite memories jitna special ho.</p>
+      <p>College ki life mein assignments, deadlines, classes aur random tension toh chalti rehti hai. Isliye I hope aapko aise bahut saare moments milen jahan aap bas relax karo, khul ke haso, aur apne liye time nikalo.</p>
+      <p>As a friend, I just want to say ki aap apni happiness ko priority dena. Apni achievements celebrate karna, apne aap par proud feel karna, aur jab kabhi din difficult ho, toh yaad rakhna ki ek bad day aapki worth decide nahi karta. 🫶</p>
+      <p>Aapki smile, aapki little quirks, aapka apna style, aur aapka hona — all of that makes you uniquely you. Khud ko bhi utni kindness dena jitni aap dusron ko dene ki deserve karti ho.</p>
+      <p>May this year bring you genuine happiness, good health, lovely memories, unexpected opportunities, lots of laughter, and people who make you feel appreciated. Aur haan, cake ka bada slice aapka hi banta hai. 🎂</p>
+      <p>Keep smiling, keep growing, and keep being your wonderful self. Aaj ke din saari good wishes officially aapke naam! </p>
+      <p class="letter-signature">Happy Birthday, Khushi Ji! 🎀<br>— Your friend 🌷</p>
+    </div>
+  </div>
+  <button class="btn secondary" onclick="go('menu')">← Chapter menu</button>
+  <button class="btn" onclick="go('quiz')">Let's play! 🎀</button>
+</div>
+</section>
+
+<!-- APOLOGY -->
+<section class="screen" id="apology">
+<div class="wrap">
+  <span class="eyebrow">A little honesty · Dil se 🤍</span>
+  <h2>Ek baat dil se <span class="pink">kehni thi</span></h2>
+  <p class="subtitle">Khushi Ji, is page par na koi joke hai, na koi game. Bas kuch baatein hain jo main aapse honestly kehna chahta hoon.</p>
+  <div class="panel">
+    <div class="apology-paper">
+      <h3 class="apology-heading">I'm genuinely sorry, Khushi Ji. 🤍</h3>
+      <p>Khushi Ji, pata hai, main kaafi time se soch raha tha ki aapse ye baatein kaise kahun. Kabhi samajh nahi aaya ki shuru kahan se karun, aur kabhi shayad main apni galtiyon ko sahi tarah accept hi nahi kar paaya. But aaj main bas honestly apni baat rakhna chahta hoon.</p>
+      <p>I know ki meri kuch baaton, mere actions aur meri mistakes ki wajah se aapko bura laga hoga. Kabhi meri wajah se aap hurt hui hongi, kabhi maine unnecessary problems create ki hongi, aur kabhi meri kisi baat ne aapka mood ya peace kharab kiya hoga. <strong>Un sab cheezon ke liye, I'm genuinely sorry.</strong></p>
+      <p>Mujhe afsos hai un moments ka jab mujhe aapki baat samajhni chahiye thi, lekin main nahi samajh paaya. Un moments ka bhi jab mujhe thoda calmly sochna chahiye tha, lekin maine aisa nahi kiya. Aur agar kabhi meri wajah se aapko laga ki aapki feelings ko samjha nahi ja raha, toh I'm really sorry for that too.</p>
+      <p>Main ye nahi keh raha ki meri har galti ka koi reason tha, ya jo kuch hua usse bas ek sorry bolkar theek kiya ja sakta hai. Galti meri thi toh uski responsibility lena bhi meri hi responsibility hai. Main past ko change nahi kar sakta, lekin apne behaviour se seekh zaroor sakta hoon.</p>
+      <p>Kabhi-kabhi insaan bina chahe bhi kisi ko hurt kar deta hai, but iska matlab ye nahi ki hurt hua hi nahi. Intentions chahe jo bhi rahe hon, agar meri kisi baat ya action se aapko takleef hui, toh mujhe us baat ko seriously lena chahiye tha. I'm sorry, Khushi Ji.</p>
+      <p>Aap meri friend ho, aur main genuinely value karta hoon hamari friendship ko. Isliye mujhe bura lagta hai ki kabhi meri hi wajah se cheezein difficult hui hongi. Dosti mein comfort, respect aur understanding honi chahiye — unnecessary stress nahi. I know ki mujhe kuch situations mein better handle karna chahiye tha.</p>
+      <p>Main ye apology isliye nahi kar raha ki aap mujhe turant maaf kar do, ya sab kuch bhool jao. <strong>Aapko jo feel hua, woh aapki feelings hain, aur unki apni importance hai.</strong> Aap par koi pressure nahi hai ki aap is message ka reply do, mujhe reassure karo, ya abhi sab kuch normal kar do.</p>
+      <p>Bas main chahta hoon ki aapko pata ho ki mujhe apni galtiyon ka ehsaas hai, aur main unhe repeat na karne ki honestly koshish karna chahta hoon. Sirf words se nahi, balki apne actions se bhi better behave karna chahta hoon. I know ki trust aur comfort words se nahi, time aur behaviour se build hote hain.</p>
+      <p>Khushi Ji, agar kabhi meri wajah se aapko disappointment hui, stress mila, ya aapko woh feel karna pada jo aap deserve nahi karti thi, toh dil se maafi chahta hoon. Kaash main un moments ko better handle kar paaya hota. Main past ko undo nahi kar sakta, but I can learn from it and do better going forward.</p>
+      <p>Aur ek baat, main nahi chahta ki meri apology ki wajah se aapke birthday ki happiness kam ho. Aaj ka din aapka hai, aur aap deserve karti ho ki aap khush raho, smile karo, apne favourite moments enjoy karo, aur genuinely special feel karo. Ye page bas ek baat honestly accept karne ke liye hai jo mujhe aapse kehni thi.</p>
+      <p>I'm sorry for the times I hurt you, for the things I could have handled better, and for the problems I created. Main perfect nahi hoon, but mujhe apni mistakes se seekhna chahiye — aur main wahi karna chahta hoon.</p>
+      <p>I genuinely wish ki aapki life mein bahut saari happiness aaye, aapko peace mile, aap apne aap par proud feel karo, aur aapke aas-paas aise log hon jo aapko samjhein aur respect karein. Aapke liye dil se achha hi chahta hoon, Khushi Ji. 🤍</p>
+      <p>Once again, I'm truly sorry. No excuses, no expectations — bas ek sincere apology aur ye hope ki main apni mistakes se kuch achha seekh paun. Thank you for reading this, Khushi Ji.</p>
+      <p class="apology-signature">Dil se maafi chahta hoon. 🤍<br>— Your friend 🫶</p>
+    </div>
+  </div>
+  <button class="btn secondary" onclick="go('menu')">← Chapter menu</button>
+  <button class="btn" onclick="go('finale')">Continue to the finale 🎉</button>
+</div>
+</section>
+
+<!-- QUIZ -->
+<section class="screen" id="quiz">
+<div class="wrap">
+  <span class="eyebrow">Chapter 03 · Birthday challenge 🎀</span>
+  <h2>The birthday <span class="pink">quiz!</span></h2>
+  <p class="subtitle">Madam Ji, let's see if you can clear this tiny challenge. Dhyaan se choose karna! 😌</p>
+  <div class="panel">
+    <div class="progress-track"><div class="progress-fill" id="quizProgress"></div></div>
+    <p class="question-number" id="questionNumber">Question 1 of 5</p>
+    <h3 class="quiz-question" id="quizQuestion">Ready?</h3>
+    <div class="quiz-options" id="quizOptions"></div>
+    <p class="quiz-feedback" id="quizFeedback" aria-live="polite"></p>
+    <button class="btn" id="nextQuestionBtn" onclick="nextQuestion()" hidden>Next question →</button>
+    <div id="quizComplete" hidden>
+      <h3 style="margin:22px 0 12px">Challenge completed! 🎉</h3>
+      <p class="small">Wah Madam Ji! You did it. Ab aap officially deserve another slice of birthday cake. 🎂</p>
+      <button class="btn" onclick="finishQuiz()">Continue the story </button>
+    </div>
+  </div>
+  <p class="lock-note">Hint: wrong answer se game over nahi hoga. Try again! 😄</p>
+  <button class="btn secondary" onclick="go('menu')">← Chapter menu</button>
+</div>
+</section>
+
+<!-- MOOD -->
+<section class="screen" id="mood">
+<div class="wrap">
+  <span class="eyebrow">Chapter 04 · Your little corner 🫶</span>
+  <h2>How's the <span class="pink">birthday girl?</span></h2>
+  <p class="subtitle">Choose whichever mood feels right. No wrong answers here, Khushi Ji. </p>
+  <div class="panel">
+    <div class="mood-grid">
+      <button class="mood-card" onclick="chooseMood('happy',this)"><span>🥳</span>Happy &amp; excited</button>
+      <button class="mood-card" onclick="chooseMood('tired',this)"><span>😴</span>Tired but okay</button>
+      <button class="mood-card" onclick="chooseMood('thoughtful',this)"><span>🌙</span>A little thoughtful</button>
+      <button class="mood-card" onclick="chooseMood('cozy',this)"><span>🧸</span>Just want to chill</button>
+    </div>
+    <div class="mood-message" id="moodMessage" aria-live="polite"></div>
+    <p class="lock-note" id="moodHint">Pick a mood to unlock your little message. 🌷</p>
+  </div>
+ <button class="btn secondary" onclick="go('menu')">← Chapter menu</button>
+<button class="btn" onclick="go('apology')">Continue to the apology 🤍</button>
+</div>
+</section>
+
+<!-- FINALE -->
+<section class="screen" id="finale">
+<div class="wrap">
+  <span class="eyebrow">One last thing, birthday girl 💗</span>
+  <div class="final-card">
+    <div class="final-cake">🎂</div>
+    <h1>HAPPY BIRTHDAY,<br><span class="pink">KHUSHI BODMOSHHH!</span> 🎉</h1>
+    <p class="final-message">Khushi Ji, I hope this little surprise made you smile, even if just for a moment. You deserve a year full of happiness, confidence, beautiful memories, good people, and reasons to laugh until your cheeks hurt. 🌷</p>
+    <p class="final-wish">Khush raho, haste raho,<br>aur apni wali masti kabhi mat khona! 🫶</p>
+    <p class="final-message">Aaj ka din aapka hai, Madam Ji. Cake khao, wishes lo, thoda pamper ho jao, aur birthday girl wali treatment enjoy karo. This friend officially wishes you the happiest birthday ever! 💌</p>
+    <p style="font-size:1.4rem;margin-top:20px">🎀 🌸 🎂 🎉 🌷</p>
+    <button class="btn" id="celebrationButton" onclick="celebrate()">🎉 ONE LAST CELEBRATION!!! 🎉</button>
+    <p id="celebrationMessage" class="small" hidden>Khushi Ji, the birthday party is officially NEVER-ENDING! 🎂💗✨</p>
+    <button class="btn secondary" onclick="restartStory()">Start again ↻</button>
+  </div>
+  <p class="footer-note">Made with friendship, fun, and birthday wishes. 💗</p>
+</div>
+</section>
+
+<script>
+const screens = document.querySelectorAll('.screen');
+let quizCompleted = false;
+let moodCompleted = false;
+let selectedMood = null;
+
+function switchScreen(id) {
+  screens.forEach(screen => screen.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+
+function go(id) {
+  if (id === 'finale' && !moodCompleted) {
+  switchScreen('mood');
+  return;
+}
+  switchScreen(id);
+  if (id === 'quiz' && !quizCompleted) renderQuestion();
+}
+
+/* MUSIC */
+let soundEnabled = false;
+let audioContext = null;
+
+function setMusicButton(playing) {
+  const button = document.getElementById('soundButton');
+  button.textContent = playing ? '♫♪' : '♫';
+  button.title = playing ? 'Turn music off' : 'Turn music on';
+  button.setAttribute('aria-label', button.title);
+}
+
+async function startBackgroundMusic() {
+  const music = document.getElementById('bgMusic');
+  music.loop = true;
+  music.volume = 0.35;
+  try {
+    await music.play();
+    soundEnabled = true;
+    setMusicButton(true);
+  } catch (error) {
+    soundEnabled = false;
+    setMusicButton(false);
+    alert('Music could not start. Make sure birthday-song.mp3 is beside index.html.');
+    console.error(error);
+  }
+}
+
+async function startStory() {
+  switchScreen('menu');
+  await startBackgroundMusic();
+  playTone(523.25,0.12);
+  setTimeout(() => playTone(659.25,0.12),120);
+}
+
+async function toggleSound() {
+  const music = document.getElementById('bgMusic');
+  if (music.paused) {
+    await startBackgroundMusic();
+  } else {
+    music.pause();
+    soundEnabled = false;
+    setMusicButton(false);
+  }
+}
+
+function getAudioContext() {
+  if (!audioContext) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return null;
+    audioContext = new AudioContextClass();
+  }
+  if (audioContext.state === 'suspended') audioContext.resume();
+  return audioContext;
+}
+
+function playTone(frequency=523.25,duration=0.12) {
+  if (!soundEnabled) return;
+  const context = getAudioContext();
+  if (!context) return;
+  const oscillator = context.createOscillator();
+  const gain = context.createGain();
+  oscillator.type = 'sine';
+  oscillator.frequency.value = frequency;
+  gain.gain.setValueAtTime(0.0001,context.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.06,context.currentTime+0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001,context.currentTime+duration);
+  oscillator.connect(gain);
+  gain.connect(context.destination);
+  oscillator.start();
+  oscillator.stop(context.currentTime+duration+0.02);
+}
+
+/* COMPLIMENTS */
+const compliments = [
+"Madam Ji, tumhari smile mein na ek alag hi magic hai. Jaise kisi boring se din mein achanak favourite song baj jaaye. 🌸💗",
+"Khushi Ji, tumhare silky, thode curly baal have their own kind of charm. Hawa bhi shayad unke saath thoda filmy hone lagti hogi. 🎀",
+"Madam Ji, tumhari aankhon ki beauty aur unki expressiveness genuinely kamaal hai. 👀✨",
+"Tumhari smile ka ek alag hi effect hai, Khushi Ji. Itni naturally cute ki uski tareef karne ke liye perfect words dhoondhne pad jaayein. 🌷",
+"Madam Ji, tumhare curly hair aur tumhari cute si smile ka combination is honestly giving main-character energy. 🎬💗",
+"Khushi Ji, tumhari aankhon mein ek alag si khoobsurati hai. Jaise poetry ki koi line jo dobara padhne ka mann kare. 🌙",
+"Madam Ji, tumhare cheeks par aane wala natural blush aur tumhari smile — such a pretty combination! 🌸",
+"Tumhari aankhein aur smile dono mein ek natural charm hai, Khushi Ji. 💗",
+"Madam Ji, tumhare silky curls, woh natural blush aur tumhari smile perfect filmy scene banate hain. 🎥",
+"Khushi Ji, tumhari smile deserves its own appreciation post. Some smiles just make the world feel nicer. 💌",
+"Madam Ji, tumhare silky, slightly curly hair aur expressive eyes dono mein apni hi elegance hai. ✨",
+"Tumhari aankhon mein expressions aur tumhari smile mein sweetness hai, Khushi Ji. 🌸",
+"Madam Ji, tumhari cute si smile, beautiful eyes aur lovely curls already bring enough poetry into the scene. 🌙",
+"Khushi Ji, tumhari smile aur silky curls ka vibe ekdum soft, dreamy aur filmy hai. 📖",
+"Madam Ji, tumhari eyes, smile, beautiful curls aur natural charm — sab apni jagah special hain. Keep smiling, pretty girl. Happy Birthday! 👑💗"
+];
+
+let lastCompliment = -1;
+let complimentCount = 0;
+
+function showCompliment() {
+  let index;
+  do {
+    index = Math.floor(Math.random()*compliments.length);
+  } while (compliments.length>1 && index===lastCompliment);
+  lastCompliment = index;
+  complimentCount++;
+  const text = document.getElementById('randomCompliment');
+  text.classList.remove('show');
+  void text.offsetWidth;
+  text.textContent = compliments[index];
+  text.classList.add('show');
+  document.getElementById('complimentCounter').textContent = `Little appreciation moment #${complimentCount} 🌸`;
+  playTone(587.33,0.1);
+}
+
+/* QUIZ */
+const questions = [
+{question:"What is the most important thing on a birthday?",options:["Worrying about assignments","Enjoying the day and making memories","Thinking about Monday's timetable","Doing absolutely no celebrating"],answer:1,feedback:"Correct! Birthday rules: happiness first, assignments later. 🎂"},
+{question:"What does Madam Ji deserve today?",options:["Extra stress","More deadlines","Cake, kindness and lots of happiness","A lecture about being productive"],answer:2,feedback:"Exactly! Cake and happiness are non-negotiable. 🍰"},
+{question:"What's a good thing to remember on a difficult day?",options:["One bad day defines everything","You have to be perfect all the time","Your worth never depends on one bad day","You should never take a break"],answer:2,feedback:"Bilkul! One difficult day can never define your whole story. 🫶"},
+{question:"What should Khushi Ji do when she gets some free time?",options:["Feel guilty about resting","Take a little break and enjoy herself","Find more things to worry about","Forget about her own happiness"],answer:1,feedback:"Yes! Rest is productive too, Madam Ji. 🌷"},
+{question:"Final question: What is today's official mission?",options:["Be serious all day","Refuse every compliment","Enjoy your birthday and smile a little extra","Finish every assignment before cake"],answer:2,feedback:"MISSION ACCEPTED! Happy birthday, Khushi Ji! 🎉"}
+];
+
+let questionIndex = 0;
+let answeredCurrent = false;
+
+function renderQuestion() {
+  if (quizCompleted) return;
+  const q = questions[questionIndex];
+  document.getElementById('questionNumber').textContent = `Question ${questionIndex+1} of ${questions.length}`;
+  document.getElementById('quizQuestion').textContent = q.question;
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('nextQuestionBtn').hidden = true;
+  document.getElementById('quizComplete').hidden = true;
+  document.getElementById('quizProgress').style.width = `${questionIndex/questions.length*100}%`;
+  const container = document.getElementById('quizOptions');
+  container.innerHTML = '';
+  answeredCurrent = false;
+  q.options.forEach((option,index) => {
+    const button = document.createElement('button');
+    button.className = 'quiz-option';
+    button.textContent = `${String.fromCharCode(65+index)}. ${option}`;
+    button.addEventListener('click',() => checkAnswer(index,button));
+    container.appendChild(button);
+  });
+}
+
+function checkAnswer(index,button) {
+  if (answeredCurrent) return;
+  const q = questions[questionIndex];
+  const feedback = document.getElementById('quizFeedback');
+  if (index !== q.answer) {
+    button.classList.add('wrong');
+    feedback.textContent = "Not quite, Madam Ji! 😄 Try another option.";
+    playTone(220,0.12);
+    setTimeout(() => button.classList.remove('wrong'),650);
+    return;
+  }
+  answeredCurrent = true;
+  button.classList.add('correct');
+  document.querySelectorAll('.quiz-option').forEach(option => option.disabled=true);
+  feedback.textContent = q.feedback;
+  document.getElementById('quizProgress').style.width = `${(questionIndex+1)/questions.length*100}%`;
+  playTone(659.25,0.12);
+  setTimeout(() => playTone(783.99,0.15),120);
+  const next = document.getElementById('nextQuestionBtn');
+  next.hidden = false;
+  next.textContent = questionIndex<questions.length-1 ? 'Next question →' : 'Complete the quiz 🎉';
+}
+
+function nextQuestion() {
+  if (!answeredCurrent) return;
+  if (questionIndex<questions.length-1) {
+    questionIndex++;
+    renderQuestion();
+  } else {
+    quizCompleted = true;
+    document.getElementById('questionNumber').textContent = 'All done! 🎉';
+    document.getElementById('quizQuestion').textContent = 'You did it, Khushi Ji!';
+    document.getElementById('quizOptions').innerHTML = '';
+    document.getElementById('quizFeedback').textContent = '';
+    document.getElementById('nextQuestionBtn').hidden = true;
+    document.getElementById('quizComplete').hidden = false;
+    document.getElementById('quizProgress').style.width = '100%';
+    playCelebrationSounds();
+  }
+}
+function finishQuiz() { go('mood'); }
+
+/* MOOD */
+const moodMessages = {
+happy:"<strong>That's the energy, Khushi Ji! 🥳</strong><br>Keep that smile going, enjoy your favourite things, and make a memory worth laughing about later. Aaj full birthday-girl mode allowed! 🎂",
+tired:"<strong>It's okay to slow down, Madam Ji. 🫶</strong><br>You don't have to be energetic every second. Drink some water, rest a little, and enjoy the day at your own pace. 💗",
+thoughtful:"<strong>A little reminder for you, Khushi Ji. 🌙</strong><br>You don't need to have your whole life figured out. Keep taking little steps, celebrate how far you've come, and give yourself the same kindness you'd give a friend. 🌷",
+cozy:"<strong>Cozy mode: officially approved! 🧸</strong><br>Comfy clothes, something yummy, your favourite music or show, and absolutely no pressure to do anything extra. 💌"
+};
+
+function chooseMood(mood,button) {
+  selectedMood = mood;
+  document.querySelectorAll('.mood-card').forEach(card => card.classList.remove('selected'));
+  button.classList.add('selected');
+  const message = document.getElementById('moodMessage');
+  message.innerHTML = moodMessages[mood];
+  message.classList.remove('show');
+  void message.offsetWidth;
+  message.classList.add('show');
+  document.getElementById('moodHint').textContent = 'A little message, just for you. 💗';
+  moodCompleted = true;
+  playTone(523.25,0.12);
+}
+
+function finishMood() {
+  if (!moodCompleted) {
+    document.getElementById('moodHint').textContent = 'Choose a mood first, Khushi Ji. Your message is waiting! 🌸';
+    document.querySelector('.mood-grid').animate(
+      [{transform:'translateX(0)'},{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}],
+      {duration:300}
+    );
+    return;
+  }
+  go('finale');
+}
+
+/* CELEBRATION */
+function playCelebrationSounds() {
+  if (!soundEnabled) return;
+  [523.25,659.25,783.99,1046.5].forEach((f,i) => setTimeout(() => playTone(f,.2),i*140));
+}
+
+function burst(amount=25) {
+  const emojis = ['💗','💖','💕','💘','🌸','🌷','✨','🎉','🎊','🎀','💝','⭐','🥳','🎂','🦋','🌟','💐','🩷','🤍','🎈'];
+  for (let i=0;i<amount;i++) {
+    const item = document.createElement('span');
+    item.className = 'floating';
+    item.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    item.style.left = `${Math.random()*100}vw`;
+    item.style.bottom = `${-20-Math.random()*100}px`;
+    item.style.fontSize = `${18+Math.random()*30}px`;
+    item.style.animationDuration = `${3+Math.random()*4}s`;
+    item.style.animationDelay = `${Math.random()*1.5}s`;
+    document.body.appendChild(item);
+    item.addEventListener('animationend',() => item.remove(),{once:true});
+  }
+}
+
+let celebrationRunning = false;
+let celebrationInterval = null;
+
+function celebrate() {
+  const button = document.getElementById('celebrationButton');
+  const message = document.getElementById('celebrationMessage');
+  if (celebrationRunning) {
+    burst(100);
+    playCelebrationSounds();
+    return;
+  }
+  celebrationRunning = true;
+  button.textContent = '🎉 THE CELEBRATION NEVER STOPS! 🎉';
+  message.hidden = false;
+  burst(250);
+  playCelebrationSounds();
+  celebrationInterval = setInterval(() => burst(100),450);
+  setTimeout(() => burst(250),250);
+  setTimeout(() => burst(250),650);
+  setTimeout(() => burst(250),1100);
+}
+
+function restartStory() {
+  if (celebrationInterval) clearInterval(celebrationInterval);
+  celebrationInterval = null;
+  celebrationRunning = false;
+  quizCompleted = false;
+  moodCompleted = false;
+  selectedMood = null;
+  questionIndex = 0;
+  answeredCurrent = false;
+  lastCompliment = -1;
+  complimentCount = 0;
+  document.getElementById('randomCompliment').textContent = 'Khushi Ji, aapke liye kuch special baatein hain. 💗';
+  document.getElementById('complimentCounter').textContent = 'A little appreciation, just for you 💌';
+  document.getElementById('moodMessage').classList.remove('show');
+  document.getElementById('moodHint').textContent = 'Pick a mood to unlock your little message. 🌷';
+  document.querySelectorAll('.mood-card').forEach(card => card.classList.remove('selected'));
+  document.getElementById('celebrationButton').textContent = '🎉 ONE LAST CELEBRATION!!! 🎉';
+  document.getElementById('celebrationMessage').hidden = true;
+  renderQuestion();
+  switchScreen('welcome');
+}
+
+renderQuestion();
+setTimeout(() => burst(7),700);
+function runAway(button) {
+  const padding = 20;
+  const maxX = Math.max(0, window.innerWidth - button.offsetWidth - padding * 2);
+  const maxY = Math.max(0, window.innerHeight - button.offsetHeight - padding * 2);
+
+  button.style.position = 'fixed';
+  button.style.zIndex = '9999';
+  button.style.left = (padding + Math.random() * maxX) + 'px';
+  button.style.top = (padding + Math.random() * maxY) + 'px';
+  button.style.transition = 'left 0.15s ease, top 0.15s ease';
+}
+</script>
+</body>
+</html>
